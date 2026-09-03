@@ -65,6 +65,18 @@ services:
       ollama:
         condition: service_started
 
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    hostname: cloudflared
+    container_name: cloudflared
+    networks: ['internal']
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      - n8n
+
   qdrant:
     image: qdrant/qdrant:v1.19.0
     hostname: qdrant
