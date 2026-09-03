@@ -32,8 +32,9 @@ services:
     networks: ['internal']
     restart: unless-stopped
     ports:
-      - 127.0.0.1:5678:5678
+      - 8080:5678
     environment:
+      - N8N_SECURE_COOKIE=${N8N_SECURE_COOKIE:-false}
       - DB_TYPE=postgresdb
       - DB_POSTGRESDB_HOST=postgres
       - DB_POSTGRESDB_USER=${POSTGRES_USER}
